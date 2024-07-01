@@ -4,3 +4,6 @@
 [submodule "orders-microservice"]
 	path = orders-microservice
 	url = git@github.com:Practice-Microservice-Course/orders-microservice.git
+[submodule "products-ms"]
+	path = products-ms
+	url = git@github.com:Practice-Microservice-Course/products-microservice.git
