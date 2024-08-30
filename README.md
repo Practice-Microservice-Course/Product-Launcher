@@ -1,7 +1,7 @@
 1. Clonar repositorio
 2. Crean un `.env` basado en el `.env.template`
 3. Ejecutar el comando `git submodule update --init --recursive` para inicializar y actualizar los submodulos
-4. Ejecutar el comando `docker compose up --build`
+4. Ejecutar el comando `docker compose -f docker-compose.prod.yml build`
 
 ### Pasos para crear los Git Submodules
 
@@ -39,3 +39,23 @@ git submodule update --remote
 Si se trabaja en el repositorio que tiene los sub-módulos, **primero actualizar y hacer push** en el sub-módulo y **después** en el repositorio principal.
 
 Si se hace al revés, se perderán las referencias de los sub-módulos en el repositorio principal y tendremos que resolver conflictos.
+
+# NATS
+
+```
+docker run -d --name nats-server -p 4222:4222 -p 8222:8222 nats
+```
+
+_-d es para dettach. Quitar si se desea ver la salida del comando por pantalla._
+
+# PROD
+
+```
+docker build -f dockerfile.prod -t client-gateway .
+```
+
+# RUN IMAGE BUILDED
+
+```
+docker run -p 3000:3000 --name client-gateway-container-4 -e PORT=3000 -e NATS_SERVERS=nats://nats-server:4222 client-gateway
+```
